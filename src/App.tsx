@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "./services/api-client";
 import { CanceledError } from "axios";
 import { Button, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import NavBar from "./components/ui/NavBar";
 
 interface GameDataResponse {
   count: number;
@@ -37,7 +38,7 @@ function App() {
       }}
     >
       <GridItem area="nav" bg="coral">
-        Nav
+        <NavBar />
       </GridItem>
       <GridItem area="aside" bg="gold" hideBelow="lg">
         Aside
