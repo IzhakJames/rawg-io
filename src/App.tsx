@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "./services/api-client";
 import { CanceledError } from "axios";
-import { Button, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Grid, GridItem, List } from "@chakra-ui/react";
 import NavBar from "./components/ui/NavBar";
 
 interface GameDataResponse {
@@ -43,8 +43,12 @@ function App() {
       <GridItem area="aside" bg="gold" hideBelow="lg">
         Aside
       </GridItem>
-      <GridItem area="main" bg="dodgerblue">
-        Main
+      <GridItem area="main">
+        <List.Root>
+          {games.map((g) => (
+            <List.Item key={g.id}>{g.name}</List.Item>
+          ))}
+        </List.Root>
       </GridItem>
     </Grid>
   );
