@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "./services/api-client";
 import { CanceledError } from "axios";
+import { Button, HStack } from "@chakra-ui/react";
 
 interface GameDataResponse {
   count: number;
@@ -36,6 +37,10 @@ function App() {
           <li key={game.id}>{game.name}</li>
         ))}
       </ul>
+      <HStack>
+        <Button>Click me</Button>
+        <Button>Click me</Button>
+      </HStack>
     </>
   );
 }
