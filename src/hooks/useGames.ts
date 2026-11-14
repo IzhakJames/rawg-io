@@ -7,10 +7,11 @@ interface GameDataResponse {
   results: Game[];
 }
 
-interface Game {
+export interface Game {
   id: number;
   name: string;
   slug: string;
+  background_image: string;
 }
 
 const useGames = () => {
