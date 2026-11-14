@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "./services/api-client";
 import { CanceledError } from "axios";
-import { Button, HStack } from "@chakra-ui/react";
+import { Button, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 
 interface GameDataResponse {
   count: number;
@@ -30,18 +30,22 @@ function App() {
   }, []);
 
   return (
-    <>
-      {error && <h1>{error}</h1>}
-      <ul>
-        {games.map((game) => (
-          <li key={game.id}>{game.name}</li>
-        ))}
-      </ul>
-      <HStack>
-        <Button>Click me</Button>
-        <Button>Click me</Button>
-      </HStack>
-    </>
+    <Grid
+      templateAreas={{
+        base: `"nav" "main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+    >
+      <GridItem area="nav" bg="coral">
+        Nav
+      </GridItem>
+      <GridItem area="aside" bg="gold" hideBelow="lg">
+        Aside
+      </GridItem>
+      <GridItem area="main" bg="dodgerblue">
+        Main
+      </GridItem>
+    </Grid>
   );
 }
 
