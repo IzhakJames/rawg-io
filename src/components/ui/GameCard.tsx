@@ -14,6 +14,7 @@ function GameCard({ game }: Props) {
       <Image
         src={getCroppedImageUrl(game.background_image)}
         alt={game.name}
+        aspectRatio={3 / 2}
         objectFit="cover"
         width="full"
         loading="lazy"
