@@ -26,6 +26,7 @@ function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
           <Menu.Content>
             {data.map((p) => (
               <Menu.Item
+                fontWeight={p.id === selectedPlatform ? "bold" : "normal"}
                 onSelect={() => onSelectPlatform(p.id)}
                 value={p.slug}
                 key={p.id}
