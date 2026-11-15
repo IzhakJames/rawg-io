@@ -24,7 +24,17 @@ function GenreList({ onSelectGenre }: Props) {
               borderRadius={8}
               objectFit="cover"
             />
-            <Button onClick={() => onSelectGenre(g)}>{g.name}</Button>
+            <Button
+              onClick={() => onSelectGenre(g)}
+              variant="ghost"
+              whiteSpace="normal"
+              height="auto"
+              textAlign="left"
+              paddingX={1}
+              flexShrink={1}
+            >
+              {g.name}
+            </Button>
           </HStack>
         </List.Item>
       ))}
