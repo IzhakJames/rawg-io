@@ -10,7 +10,7 @@ interface Props {
 
 function GameCard({ game }: Props) {
   return (
-    <Card.Root>
+    <Card.Root height="full">
       <Image
         src={getCroppedImageUrl(game.background_image)}
         alt={game.name}
@@ -21,7 +21,7 @@ function GameCard({ game }: Props) {
       />
       <Card.Body>
         <Card.Title as="h2">{game.name}</Card.Title>
-        <HStack justifyContent={"space-between"}>
+        <HStack justifyContent={"space-between"} marginTop="auto">
           <PlatformIconList
             platforms={game.parent_platforms.map((p) => p.platform)}
           ></PlatformIconList>
