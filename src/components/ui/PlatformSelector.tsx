@@ -1,7 +1,9 @@
+import usePlatforms from "@/hooks/usePlatforms";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
 function PlatformSelector() {
+  const { data } = usePlatforms();
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
@@ -12,9 +14,11 @@ function PlatformSelector() {
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
-            <Menu.Item value="item-1">Item 1</Menu.Item>
-            <Menu.Item value="item-2">Item 2</Menu.Item>
-            <Menu.Item value="item-3">Item 3</Menu.Item>
+            {data.map((p) => (
+              <Menu.Item value={p.slug} key={p.id}>
+                {p.name}
+              </Menu.Item>
+            ))}
           </Menu.Content>
         </Menu.Positioner>
       </Portal>
