@@ -25,10 +25,9 @@ export interface Game {
 const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const controller = new AbortController();
-    setIsLoading(true);
     apiClient
       .get<GameDataResponse>("/games", { signal: controller.signal })
       .then((res) => {
@@ -36,8 +35,9 @@ const useGames = () => {
         setIsLoading(false);
       })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
+        setError(err.message);
         setIsLoading(false);
-        if (!(err instanceof CanceledError)) setError(err.message);
       });
 
     return () => controller.abort();
