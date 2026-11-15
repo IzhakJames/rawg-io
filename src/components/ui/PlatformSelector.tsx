@@ -1,10 +1,11 @@
+import type { Platform } from "@/hooks/useGames";
 import usePlatforms from "@/hooks/usePlatforms";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
 interface Props {
-  selectedPlatform: number | null;
-  onSelectPlatform: (id: number | null) => void;
+  selectedPlatform: Platform | null;
+  onSelectPlatform: (platform: Platform | null) => void;
 }
 
 function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
@@ -12,13 +13,11 @@ function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
 
   if (error) return null;
 
-  const selected = data.find((p) => p.id === selectedPlatform);
-
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
         <Button variant="outline" padding={2} marginX={2}>
-          {selected?.name ?? "Platforms"} <BsChevronDown />
+          {selectedPlatform?.name ?? "Platforms"} <BsChevronDown />
         </Button>
       </Menu.Trigger>
       <Portal>
@@ -26,8 +25,8 @@ function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
           <Menu.Content>
             {data.map((p) => (
               <Menu.Item
-                fontWeight={p.id === selectedPlatform ? "bold" : "normal"}
-                onSelect={() => onSelectPlatform(p.id)}
+                fontWeight={p.id === selectedPlatform?.id ? "bold" : "normal"}
+                onSelect={() => onSelectPlatform(p)}
                 value={p.slug}
                 key={p.id}
               >

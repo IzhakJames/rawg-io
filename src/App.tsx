@@ -11,6 +11,9 @@ const initialQuery: GameQuery = { genre: null, platform: null };
 function App() {
   const [query, setQuery] = useState<GameQuery>(initialQuery);
   const hasFilters = query.genre !== null || query.platform !== null;
+  const heading = [query.platform?.name, query.genre?.name, "Games"]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <Grid
@@ -27,23 +30,20 @@ function App() {
         <NavBar />
       </GridItem>
       <GridItem area="aside" hideBelow="lg" paddingX={5}>
+        <Heading padding={1}>Genre</Heading>
         <GenreList
           selectedGenre={query.genre}
-          onSelectGenre={(genreId: number | null) =>
-            setQuery({ ...query, genre: genreId })
-          }
+          onSelectGenre={(genre) => setQuery({ ...query, genre })}
         />
       </GridItem>
       <GridItem area="main">
         <Heading as="h1" fontSize={"4xl"} padding={2} marginBottom={2}>
-          Games
+          {heading}
         </Heading>
         <HStack>
           <PlatformSelector
             selectedPlatform={query.platform}
-            onSelectPlatform={(platformId: number | null) =>
-              setQuery({ ...query, platform: platformId })
-            }
+            onSelectPlatform={(platform) => setQuery({ ...query, platform })}
           />
           <Button
             disabled={!hasFilters}
