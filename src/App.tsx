@@ -6,11 +6,11 @@ import { useState } from "react";
 import PlatformSelector from "./components/ui/PlatformSelector";
 import type { GameQuery } from "./hooks/useGames";
 
+const initialQuery: GameQuery = { genre: null, platform: null };
+
 function App() {
-  const [query, setQuery] = useState<GameQuery>({
-    genre: null,
-    platform: null,
-  });
+  const [query, setQuery] = useState<GameQuery>(initialQuery);
+  const hasFilters = query.genre !== null || query.platform !== null;
 
   return (
     <Grid
@@ -35,7 +35,7 @@ function App() {
         />
       </GridItem>
       <GridItem area="main">
-        <Heading fontSize={"4xl"} padding={2} marginBottom={2}>
+        <Heading as="h1" fontSize={"4xl"} padding={2} marginBottom={2}>
           Games
         </Heading>
         <HStack>
@@ -46,12 +46,8 @@ function App() {
             }
           />
           <Button
-            onClick={() =>
-              setQuery({
-                genre: null,
-                platform: null,
-              })
-            }
+            disabled={!hasFilters}
+            onClick={() => setQuery(initialQuery)}
             variant={"ghost"}
           >
             Clear Filters
