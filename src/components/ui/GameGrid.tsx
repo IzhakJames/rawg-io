@@ -8,10 +8,11 @@ const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface Props {
   selectedGenre: number | null;
+  selectedPlatform: number | null;
 }
 
-function GameGrid({ selectedGenre }: Props) {
-  const { data, error, isLoading } = useGames(selectedGenre);
+function GameGrid({ selectedGenre, selectedPlatform }: Props) {
+  const { data, error, isLoading } = useGames(selectedGenre, selectedPlatform);
   return (
     <>
       {error && <Text>{error}</Text>}
