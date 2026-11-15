@@ -1,10 +1,10 @@
-import useGenres, { type Genre } from "@/hooks/useGenres";
+import useGenres from "@/hooks/useGenres";
 import getCroppedImageUrl from "@/utils/crop-image";
 import { Button, HStack, Image, List } from "@chakra-ui/react";
 import GenreListSkeleton from "./GenreListSkeleton";
 
 interface Props {
-  onSelectGenre: (g: Genre) => void;
+  onSelectGenre: (g: number) => void;
 }
 
 function GenreList({ onSelectGenre }: Props) {
@@ -25,7 +25,7 @@ function GenreList({ onSelectGenre }: Props) {
               objectFit="cover"
             />
             <Button
-              onClick={() => onSelectGenre(g)}
+              onClick={() => onSelectGenre(g.id)}
               variant="ghost"
               whiteSpace="normal"
               height="auto"
