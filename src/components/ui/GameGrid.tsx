@@ -14,6 +14,7 @@ function GameGrid() {
       <SimpleGrid
         columns={{ base: 1, md: 2, lg: 3, xl: 5 }}
         gap={{ base: 4, md: 6 }}
+        padding={2}
       >
         {isLoading &&
           skeletons.map((s) => (

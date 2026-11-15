@@ -4,7 +4,7 @@ export interface Genre {
   id: number;
   name: string;
   slug: string;
-  background_image: string | null;
+  image_background: string | null;
 }
 
 const useGenres = () => useData<Genre>("/genres");
