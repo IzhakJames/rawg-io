@@ -4,10 +4,11 @@ import { Button, HStack, Image, List } from "@chakra-ui/react";
 import GenreListSkeleton from "./GenreListSkeleton";
 
 interface Props {
-  onSelectGenre: (g: number) => void;
+  selectedGenre: number | null;
+  onSelectGenre: (g: number | null) => void;
 }
 
-function GenreList({ onSelectGenre }: Props) {
+function GenreList({ selectedGenre, onSelectGenre }: Props) {
   const { data, error, isLoading } = useGenres();
 
   if (error) return null;
@@ -25,7 +26,10 @@ function GenreList({ onSelectGenre }: Props) {
               objectFit="cover"
             />
             <Button
-              onClick={() => onSelectGenre(g.id)}
+              fontWeight={g.id === selectedGenre ? "bold" : "normal"}
+              onClick={() => {
+                onSelectGenre(g.id === selectedGenre ? null : g.id);
+              }}
               variant="ghost"
               whiteSpace="normal"
               height="auto"

@@ -10,7 +10,7 @@ interface DataResponse<T> {
 const useData = <T>(
   endpoint: string,
   config?: AxiosRequestConfig,
-  deps?: any[],
+  deps?: unknown[],
 ) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
@@ -25,6 +25,7 @@ const useData = <T>(
         })
         .then((res) => {
           setData(res.data.results);
+          setError("");
           setIsLoading(false);
         })
         .catch((err) => {
@@ -35,6 +36,7 @@ const useData = <T>(
 
       return () => controller.abort();
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     deps ? [...deps] : [],
   );
 

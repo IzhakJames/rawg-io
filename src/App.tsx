@@ -6,7 +6,6 @@ import { useState } from "react";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
-  console.log(selectedGenre);
   return (
     <Grid
       templateAreas={{
@@ -22,7 +21,10 @@ function App() {
         <NavBar />
       </GridItem>
       <GridItem area="aside" hideBelow="lg" paddingX={5}>
-        <GenreList onSelectGenre={(id: number) => setSelectedGenre(id)} />
+        <GenreList
+          onSelectGenre={setSelectedGenre}
+          selectedGenre={selectedGenre}
+        />
       </GridItem>
       <GridItem area="main">
         <GameGrid selectedGenre={selectedGenre} />
