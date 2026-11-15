@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Button, Grid, GridItem, Heading, HStack } from "@chakra-ui/react";
 import NavBar from "./components/ui/NavBar";
 import GameGrid from "./components/ui/GameGrid";
 import GenreList from "./components/ui/GenreList";
@@ -35,12 +35,28 @@ function App() {
         />
       </GridItem>
       <GridItem area="main">
-        <PlatformSelector
-          selectedPlatform={query.platform}
-          onSelectPlatform={(platformId: number | null) =>
-            setQuery({ ...query, platform: platformId })
-          }
-        />
+        <Heading fontSize={"4xl"} padding={2} marginBottom={2}>
+          Games
+        </Heading>
+        <HStack>
+          <PlatformSelector
+            selectedPlatform={query.platform}
+            onSelectPlatform={(platformId: number | null) =>
+              setQuery({ ...query, platform: platformId })
+            }
+          />
+          <Button
+            onClick={() =>
+              setQuery({
+                genre: null,
+                platform: null,
+              })
+            }
+            variant={"ghost"}
+          >
+            Clear Filters
+          </Button>
+        </HStack>
         <GameGrid query={query} />
       </GridItem>
     </Grid>
