@@ -17,7 +17,6 @@ This is a rebuild of my earlier project, [game-hub](https://github.com/IzhakJame
 - **A single `GameQuery` object** holds all the filters, sorting and search, so adding a new option means touching only a few places.
 - **Smaller images:** game images are requested at 600×400 from RAWG's image server instead of at full resolution.
 - **Loading skeletons** that match the real cards' size, so the layout doesn't jump when data arrives.
-- **The API key is in an environment variable** instead of the source code.
 
 ## Features
 
@@ -58,14 +57,12 @@ cd rawg-io
 npm install
 ```
 
-Copy the example environment file and add your API key:
+Open `src/services/api-client.ts` and replace the value of `key` with your own RAWG API key:
 
-```bash
-cp .env.example .env.local
-```
-
-```env
-VITE_RAWG_API_KEY=your_rawg_api_key_here
+```ts
+params: {
+  key: "your_rawg_api_key_here",
+},
 ```
 
 Then start the development server:
@@ -100,9 +97,9 @@ src/
 
 ## Deployment
 
-The app is deployed on Vercel, which detects Vite automatically (build command `npm run build`, output folder `dist`). Add `VITE_RAWG_API_KEY` under **Project Settings → Environment Variables** before deploying.
+The app is deployed on Vercel, which detects Vite automatically (build command `npm run build`, output folder `dist`). No extra configuration is needed.
 
-Because the app runs entirely in the browser, the API key is included in the built JavaScript and visible to anyone using the site. That's normal for a frontend-only app using a free API key.
+The RAWG API key is set directly in `src/services/api-client.ts`. The app runs entirely in the browser, so the key would be visible to anyone using the site either way. That's normal for a frontend-only app using a free API key.
 
 ## Possible future improvements
 
