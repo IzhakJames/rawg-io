@@ -20,7 +20,7 @@ export interface Game {
   slug: string;
   background_image: string | null;
   parent_platforms: { platform: Platform }[];
-  metacritic: number;
+  metacritic: number | null;
   rating_top: number;
 }
 
