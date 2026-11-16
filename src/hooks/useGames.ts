@@ -5,6 +5,7 @@ export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   ordering: string;
+  search: string;
 }
 
 export interface Platform {
@@ -30,6 +31,7 @@ const useGames = (query: GameQuery) =>
         genres: query.genre?.id,
         parent_platforms: query.platform?.id,
         ordering: query.ordering,
+        search: query.search,
       },
     },
     [query],

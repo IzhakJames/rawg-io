@@ -7,12 +7,16 @@ import PlatformSelector from "./components/ui/PlatformSelector";
 import type { GameQuery } from "./hooks/useGames";
 import SortSelector from "./components/ui/SortSelector";
 
-const initialQuery: GameQuery = { genre: null, platform: null, ordering: "" };
+const initialQuery: GameQuery = {
+  genre: null,
+  platform: null,
+  ordering: "",
+  search: "",
+};
 
 function App() {
   const [query, setQuery] = useState<GameQuery>(initialQuery);
-  const hasFilters =
-    query.genre !== null || query.platform !== null || query.ordering !== "";
+  const hasFilters = query.genre !== null || query.platform !== null;
   const heading = [query.platform?.name, query.genre?.name, "Games"]
     .filter(Boolean)
     .join(" ");
@@ -29,7 +33,7 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar onSearch={(search) => setQuery({ ...query, search })} />
       </GridItem>
       <GridItem area="aside" hideBelow="lg" paddingX={5}>
         <Heading padding={1}>Genre</Heading>
@@ -53,7 +57,9 @@ function App() {
           />
           <Button
             disabled={!hasFilters}
-            onClick={() => setQuery(initialQuery)}
+            onClick={() =>
+              setQuery({ ...query, genre: null, platform: null })
+            }
             variant={"ghost"}
           >
             Clear Filters
