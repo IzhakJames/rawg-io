@@ -2,7 +2,7 @@
 
 A video game discovery app built with React and TypeScript, powered by the [RAWG Video Games Database API](https://rawg.io/apidocs). Browse thousands of games, filter by genre and platform, sort the results and search by name.
 
-**Live demo:** _coming soon on Vercel_
+**Live demo:** [rawg-io-sigma.vercel.app](https://rawg-io-sigma.vercel.app)
 
 ## About this version
 
@@ -97,7 +97,7 @@ src/
 
 ## Deployment
 
-The app is deployed on Vercel, which detects Vite automatically (build command `npm run build`, output folder `dist`). No extra configuration is needed.
+The app is deployed on Vercel at [rawg-io-sigma.vercel.app](https://rawg-io-sigma.vercel.app). Vercel detects Vite automatically (build command `npm run build`, output folder `dist`). No extra configuration is needed.
 
 The RAWG API key is set directly in `src/services/api-client.ts`. The app runs entirely in the browser, so the key would be visible to anyone using the site either way. That's normal for a frontend-only app using a free API key.
 
