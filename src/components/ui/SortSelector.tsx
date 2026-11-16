@@ -32,8 +32,9 @@ function SortSelector({ ordering, onSelectSorting }: Props) {
           <Menu.Content>
             {sortOrders.map((order) => (
               <Menu.Item
-                key={order.value}
-                value={order.value}
+                key={order.label}
+                // the menu ignores items whose value is "" (falsy), so give it a real id
+                value={order.value || "relevance"}
                 onSelect={() => onSelectSorting(order.value)}
                 fontWeight={order.value === ordering ? "bold" : "normal"}
               >
