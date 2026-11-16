@@ -5,12 +5,14 @@ import GenreList from "./components/ui/GenreList";
 import { useState } from "react";
 import PlatformSelector from "./components/ui/PlatformSelector";
 import type { GameQuery } from "./hooks/useGames";
+import SortSelector from "./components/ui/SortSelector";
 
-const initialQuery: GameQuery = { genre: null, platform: null };
+const initialQuery: GameQuery = { genre: null, platform: null, ordering: "" };
 
 function App() {
   const [query, setQuery] = useState<GameQuery>(initialQuery);
-  const hasFilters = query.genre !== null || query.platform !== null;
+  const hasFilters =
+    query.genre !== null || query.platform !== null || query.ordering !== "";
   const heading = [query.platform?.name, query.genre?.name, "Games"]
     .filter(Boolean)
     .join(" ");
@@ -44,6 +46,10 @@ function App() {
           <PlatformSelector
             selectedPlatform={query.platform}
             onSelectPlatform={(platform) => setQuery({ ...query, platform })}
+          />
+          <SortSelector
+            ordering={query.ordering}
+            onSelectSorting={(ordering) => setQuery({ ...query, ordering })}
           />
           <Button
             disabled={!hasFilters}
