@@ -1,4 +1,5 @@
 import apiClient from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
 import { CanceledError, type AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
 
@@ -6,6 +7,16 @@ interface DataResponse<T> {
   count: number;
   results: T[];
 }
+
+export const useDataV2 = <T>(endpoint: string, config?: AxiosRequestConfig) =>
+  useQuery<DataResponse<T>, Error>({
+    queryKey: [endpoint, config],
+    queryFn: ({ signal }) =>
+      apiClient
+        .get<DataResponse<T>>(endpoint, { ...config, signal })
+        .then((res) => res.data),
+    staleTime: 10 * 1000,
+  });
 
 const useData = <T>(
   endpoint: string,

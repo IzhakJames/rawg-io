@@ -11,12 +11,12 @@ interface Props {
 function GenreList({ selectedGenre, onSelectGenre }: Props) {
   const { data, error, isLoading } = useGenres();
 
-  if (error) return null;
-
   if (isLoading) return <GenreListSkeleton />;
+  if (error || !data) return null;
+
   return (
     <List.Root variant="plain">
-      {data.map((g) => (
+      {data.results.map((g) => (
         <List.Item key={g.id} padding={1}>
           <HStack>
             <Image
