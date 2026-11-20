@@ -15,7 +15,7 @@ export const useDataV2 = <T>(endpoint: string, config?: AxiosRequestConfig) =>
       apiClient
         .get<DataResponse<T>>(endpoint, { ...config, signal })
         .then((res) => res.data),
-    staleTime: 10 * 1000,
+    staleTime: 60 * 1000,
   });
 
 const useData = <T>(

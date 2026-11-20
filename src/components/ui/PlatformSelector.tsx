@@ -11,7 +11,7 @@ interface Props {
 function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
   const { data, error } = usePlatforms();
 
-  if (error) return null;
+  if (error || !data) return null;
 
   return (
     <Menu.Root>
@@ -23,7 +23,7 @@ function PlatformSelector({ selectedPlatform, onSelectPlatform }: Props) {
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
-            {data.map((p) => (
+            {data.results.map((p) => (
               <Menu.Item
                 fontWeight={p.id === selectedPlatform?.id ? "bold" : "normal"}
                 onSelect={() => onSelectPlatform(p)}
