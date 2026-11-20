@@ -1,6 +1,6 @@
-import useData from "./useData";
-import type { Genre } from "./useGenres";
-import type { Platform } from "./usePlatforms";
+import useData from "@/hooks/useData";
+import type { Genre } from "@/hooks/useGenres";
+import type { Platform } from "@/hooks/usePlatforms";
 
 export interface GameQuery {
   genre: Genre | null;

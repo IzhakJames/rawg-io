@@ -1,8 +1,8 @@
 import useGames from "@/hooks/useGames";
 import { SimpleGrid, Text } from "@chakra-ui/react";
-import GameCard from "./GameCard";
-import GameCardSkeleton from "./GameCardSkeleton";
-import GameCardContainer from "./GameCardContainer";
+import GameCard from "@/components/ui/GameCard";
+import GameCardSkeleton from "@/components/ui/GameCardSkeleton";
+import GameCardContainer from "@/components/ui/GameCardContainer";
 import type { GameQuery } from "@/hooks/useGames";
 
 const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

@@ -1,4 +1,4 @@
-import useData, { ONE_DAY } from "./useData";
+import useData, { ONE_DAY } from "@/hooks/useData";
 
 export interface Platform {
   id: number;
