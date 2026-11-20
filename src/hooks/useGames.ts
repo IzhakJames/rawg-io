@@ -1,17 +1,12 @@
 import useData from "./useData";
 import type { Genre } from "./useGenres";
+import type { Platform } from "./usePlatforms";
 
 export interface GameQuery {
   genre: Genre | null;
   platform: Platform | null;
   ordering: string;
   search: string;
-}
-
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
 }
 
 export interface Game {
