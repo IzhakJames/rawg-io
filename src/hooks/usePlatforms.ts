@@ -1,6 +1,7 @@
-import { useDataV2 } from "./useData";
+import useData, { ONE_DAY } from "./useData";
 import type { Platform } from "./useGames";
 
-const usePlatforms = () => useDataV2<Platform>("/platforms/lists/parents");
+const usePlatforms = () =>
+  useData<Platform>("/platforms/lists/parents", undefined, ONE_DAY);
 
 export default usePlatforms;

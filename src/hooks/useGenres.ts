@@ -1,4 +1,4 @@
-import { useDataV2 } from "./useData";
+import useData, { ONE_DAY } from "./useData";
 
 export interface Genre {
   id: number;
@@ -7,6 +7,6 @@ export interface Genre {
   image_background: string | null;
 }
 
-const useGenres = () => useDataV2<Genre>("/genres");
+const useGenres = () => useData<Genre>("/genres", undefined, ONE_DAY);
 
 export default useGenres;
