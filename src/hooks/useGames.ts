@@ -2,7 +2,7 @@ import type { Genre } from "@/hooks/useGenres";
 import type { Platform } from "@/hooks/usePlatforms";
 import ApiClient from "@/services/api-client";
 import { ONE_MINUTE } from "@/utils/time";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 export interface GameQuery {
   genre: Genre | null;
@@ -24,19 +24,24 @@ export interface Game {
 const gamesClient = new ApiClient<Game>("/games");
 
 const useGames = (query: GameQuery) =>
-  useQuery({
+  useInfiniteQuery({
     queryKey: ["games", query],
-    queryFn: ({ signal }) =>
+    queryFn: ({ signal, pageParam }) =>
       gamesClient.getAll({
         params: {
           genres: query.genre?.id,
           parent_platforms: query.platform?.id,
           ordering: query.ordering,
           search: query.search,
+          page: pageParam,
         },
         signal,
       }),
     staleTime: ONE_MINUTE,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.next ? allPages.length + 1 : undefined;
+    },
   });
 
 export default useGames;
