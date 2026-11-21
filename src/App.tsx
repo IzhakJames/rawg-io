@@ -6,7 +6,7 @@ import { useState } from "react";
 import PlatformSelector from "@/components/ui/PlatformSelector";
 import type { GameQuery } from "@/hooks/useGames";
 import SortSelector from "@/components/ui/SortSelector";
-import GamesHeading from "./components/ui/GamesHeading";
+import GamesHeading from "@/components/ui/GamesHeading";
 
 const initialQuery: GameQuery = {
   genreId: null,
@@ -45,8 +45,8 @@ function App() {
         <HStack>
           <PlatformSelector
             selectedPlatformId={query.platformId}
-            onSelectPlatform={(platform) =>
-              setQuery({ ...query, platformId: platform })
+            onSelectPlatform={(platformId) =>
+              setQuery({ ...query, platformId })
             }
           />
           <SortSelector

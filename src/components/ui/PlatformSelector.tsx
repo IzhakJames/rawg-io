@@ -1,3 +1,4 @@
+import usePlatform from "@/hooks/usePlatform";
 import usePlatforms from "@/hooks/usePlatforms";
 import { Button, Menu, Portal } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
@@ -9,17 +10,16 @@ interface Props {
 
 function PlatformSelector({ selectedPlatformId, onSelectPlatform }: Props) {
   const { data, error } = usePlatforms();
+  // hooks must run before any early return
+  const selectedPlatform = usePlatform(selectedPlatformId);
 
   if (error || !data) return null;
 
-  const selectedPlatformName = data.results.find(
-    (p) => p.id === selectedPlatformId,
-  );
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
         <Button variant="outline" padding={2} marginX={2}>
-          {selectedPlatformName?.name ?? "Platforms"} <BsChevronDown />
+          {selectedPlatform?.name ?? "Platforms"} <BsChevronDown />
         </Button>
       </Menu.Trigger>
       <Portal>
