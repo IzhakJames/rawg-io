@@ -1,4 +1,5 @@
-import useData, { ONE_DAY } from "@/hooks/useData";
+import ApiClient, { ONE_DAY } from "@/services/api-client";
+import { useQuery } from "@tanstack/react-query";
 
 export interface Platform {
   id: number;
@@ -6,7 +7,13 @@ export interface Platform {
   slug: string;
 }
 
+const platformClient = new ApiClient<Platform>("/platforms/lists/parents");
+
 const usePlatforms = () =>
-  useData<Platform>("/platforms/lists/parents", undefined, ONE_DAY);
+  useQuery({
+    queryKey: ["platforms"],
+    queryFn: ({ signal }) => platformClient.getAll({ signal }),
+    staleTime: ONE_DAY,
+  });
 
 export default usePlatforms;
