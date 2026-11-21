@@ -6,20 +6,18 @@ import { useState } from "react";
 import PlatformSelector from "@/components/ui/PlatformSelector";
 import type { GameQuery } from "@/hooks/useGames";
 import SortSelector from "@/components/ui/SortSelector";
+import GamesHeading from "./components/ui/GamesHeading";
 
 const initialQuery: GameQuery = {
-  genre: null,
-  platform: null,
+  genreId: null,
+  platformId: null,
   ordering: "",
   search: "",
 };
 
 function App() {
   const [query, setQuery] = useState<GameQuery>(initialQuery);
-  const hasFilters = query.genre !== null || query.platform !== null;
-  const heading = [query.platform?.name, query.genre?.name, "Games"]
-    .filter(Boolean)
-    .join(" ");
+  const hasFilters = query.genreId !== null || query.platformId !== null;
 
   return (
     <Grid
@@ -38,18 +36,18 @@ function App() {
       <GridItem area="aside" hideBelow="lg" paddingX={5}>
         <Heading padding={1}>Genre</Heading>
         <GenreList
-          selectedGenre={query.genre}
-          onSelectGenre={(genre) => setQuery({ ...query, genre })}
+          selectedGenreId={query.genreId}
+          onSelectGenre={(genreId) => setQuery({ ...query, genreId })}
         />
       </GridItem>
       <GridItem area="main">
-        <Heading as="h1" fontSize={"4xl"} padding={2} marginBottom={2}>
-          {heading}
-        </Heading>
+        <GamesHeading platformId={query.platformId} genreId={query.genreId} />
         <HStack>
           <PlatformSelector
-            selectedPlatform={query.platform}
-            onSelectPlatform={(platform) => setQuery({ ...query, platform })}
+            selectedPlatformId={query.platformId}
+            onSelectPlatform={(platform) =>
+              setQuery({ ...query, platformId: platform })
+            }
           />
           <SortSelector
             ordering={query.ordering}
@@ -58,7 +56,7 @@ function App() {
           <Button
             disabled={!hasFilters}
             onClick={() =>
-              setQuery({ ...query, genre: null, platform: null })
+              setQuery({ ...query, genreId: null, platformId: null })
             }
             variant={"ghost"}
           >
