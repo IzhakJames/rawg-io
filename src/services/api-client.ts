@@ -1,12 +1,9 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
-interface DataResponse<T> {
+export interface FetchResponse<T> {
   count: number;
   results: T[];
 }
-
-export const ONE_MINUTE = 60 * 1000;
-export const ONE_DAY = 24 * 60 * ONE_MINUTE;
 
 const axiosInstance = axios.create({
   baseURL: "https://api.rawg.io/api",
@@ -16,7 +13,7 @@ const axiosInstance = axios.create({
 });
 
 class ApiClient<T> {
-  endpoint: string;
+  private readonly endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = endpoint;
@@ -24,11 +21,13 @@ class ApiClient<T> {
 
   getAll = (config?: AxiosRequestConfig) =>
     axiosInstance
-      .get<DataResponse<T>>(this.endpoint, { ...config })
+      .get<FetchResponse<T>>(this.endpoint, config)
       .then((res) => res.data);
 
-  get = (id: number | string) =>
-    axiosInstance.get<T>(`${this.endpoint}/${id}`).then((res) => res.data);
+  get = (id: number | string, config?: AxiosRequestConfig) =>
+    axiosInstance
+      .get<T>(`${this.endpoint}/${id}`, config)
+      .then((res) => res.data);
 }
 
 export default ApiClient;

@@ -1,4 +1,5 @@
-import ApiClient, { ONE_DAY } from "@/services/api-client";
+import ApiClient from "@/services/api-client";
+import { ONE_DAY } from "@/utils/time";
 import { useQuery } from "@tanstack/react-query";
 
 export interface Platform {

@@ -1,6 +1,7 @@
 import type { Genre } from "@/hooks/useGenres";
 import type { Platform } from "@/hooks/usePlatforms";
-import ApiClient, { ONE_MINUTE } from "@/services/api-client";
+import ApiClient from "@/services/api-client";
+import { ONE_MINUTE } from "@/utils/time";
 import { useQuery } from "@tanstack/react-query";
 
 export interface GameQuery {
