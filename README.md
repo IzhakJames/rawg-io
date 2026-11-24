@@ -13,14 +13,17 @@ This is a rebuild of my earlier project, [game-hub](https://github.com/IzhakJame
 - **Chakra UI v2 → v3**, using the new compound component API (`Card.Root`, `Menu.Trigger`, `List.Item` and so on). framer-motion and `@emotion/styled` are no longer needed.
 - **Bootstrap removed.** All styling now comes from Chakra.
 - **Newer tooling:** Vite 7 → 8, TypeScript 5 → 6, ESLint 8 → 9 (flat config), react-icons 4 → 5.
-- **A generic `useData<T>` hook** handles fetching, loading, errors and request cancellation for every endpoint, so `useGames`, `useGenres` and `usePlatforms` are each only a few lines.
-- **A single `GameQuery` object** holds all the filters, sorting and search, so adding a new option means touching only a few places.
+- **TanStack Query for data fetching**, with caching, request de-duplication and cancellation. Switching back to a filter you've already viewed shows its results instantly, and genres and platforms are fetched once and reused for a day.
+- **A small `ApiClient<T>` class** keeps the HTTP layer (axios, endpoints, response types) separate from the React Query hooks, so each hook only describes its query key and cache settings.
+- **"Load More" pagination** using `useInfiniteQuery`, instead of showing only the first page of results.
+- **A single `GameQuery` object** holds the selected genre id, platform id, sort order and search text, so adding a new option means touching only a few places.
 - **Smaller images:** game images are requested at 600×400 from RAWG's image server instead of at full resolution.
 - **Loading skeletons** that match the real cards' size, so the layout doesn't jump when data arrives.
 
 ## Features
 
 - Responsive game grid: 1 to 5 columns depending on screen width
+- **Load More** button to fetch the next page of games, with skeleton cards while it loads
 - Filter by **genre** (sidebar with thumbnails; click the selected genre again to clear it)
 - Filter by **platform** (dropdown menu)
 - **Sort** by relevance, release date, name, date added, rating or critic score
@@ -28,6 +31,7 @@ This is a rebuild of my earlier project, [game-hub](https://github.com/IzhakJame
 - A heading that reflects the active filters, e.g. "PlayStation Action Games"
 - A "Clear Filters" button for genre and platform
 - Platform icons, Metacritic score badges and rating emojis on each game card
+- A tooltip on each Metacritic score explaining what it means (e.g. "Generally favorable reviews")
 - Placeholder image for games without artwork
 - Dark and light mode (dark by default)
 
@@ -38,8 +42,8 @@ This is a rebuild of my earlier project, [game-hub](https://github.com/IzhakJame
 | Framework | React 19, TypeScript 6 |
 | Build tool | Vite 8 |
 | UI | Chakra UI v3, next-themes, react-icons |
-| Data fetching | axios |
-| Linting | ESLint 9, typescript-eslint, eslint-plugin-react-hooks |
+| Data fetching | TanStack Query v5 (with React Query DevTools in development), axios |
+| Linting | ESLint 9, typescript-eslint, eslint-plugin-react-hooks, @tanstack/eslint-plugin-query |
 | Hosting | Vercel |
 
 ## Getting started
@@ -71,7 +75,7 @@ Then start the development server:
 npm run dev
 ```
 
-The app runs at [http://localhost:5173](http://localhost:5173).
+The app runs at [http://localhost:5173](http://localhost:5173). In development, the React Query DevTools button in the bottom corner lets you inspect each query and its cache.
 
 ### Scripts
 
@@ -88,11 +92,11 @@ The app runs at [http://localhost:5173](http://localhost:5173).
 src/
 ├── assets/           # Logo, emojis and the image placeholder
 ├── components/
-│   ├── config/       # Chakra UI and theme providers
+│   ├── config/       # React Query, Chakra UI and theme providers
 │   └── ui/           # GameGrid, GameCard, GenreList, selectors, NavBar and so on
-├── hooks/            # useData (generic) plus useGames, useGenres, usePlatforms
-├── services/         # The axios client for the RAWG API
-└── utils/            # Image URL cropping helper
+├── hooks/            # React Query hooks: useGames, useGenres, usePlatforms, usePlatform
+├── services/         # ApiClient class and the axios instance for the RAWG API
+└── utils/            # Image URL cropping and cache time constants
 ```
 
 ## Deployment
@@ -103,8 +107,7 @@ The RAWG API key is set directly in `src/services/api-client.ts`. The app runs e
 
 ## Possible future improvements
 
-- Switch data fetching to TanStack Query for caching and less repeated loading
-- Infinite scrolling to load more than the first page of results
+- Load the next page automatically when scrolling to the bottom, instead of with a button
 - A genre filter on mobile (the sidebar is currently hidden on small screens)
 - A details page for each game
 
